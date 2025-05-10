@@ -37,21 +37,18 @@ jobs:
           images: |
             ghcr.io/${{ github.repository }}
 
-      - name: Build image with CVE scan
-        id: build
+      - name: Build single-arch image for CVE scan
         uses: docker/build-push-action@v5
         with:
           context: .
-          platforms: linux/amd64,linux/arm64
-          push: false
-          cache-from: type=registry,ref=valdegor/cache:weather
-          cache-to: type=registry,mode=max,ref=valdegor/cache:weather
-          tags: ${{ steps.meta.outputs.tags }}
+          platforms: linux/amd64
+          load: true
+          tags: apppogoda:scan
 
       - name: Scan image for CVEs
         uses: aquasecurity/trivy-action@0.11.2
         with:
-          image-ref: ${{ steps.meta.outputs.tags }}
+          image-ref: apppogoda:scan
           severity: CRITICAL,HIGH
           ignore-unfixed: true
           format: table
