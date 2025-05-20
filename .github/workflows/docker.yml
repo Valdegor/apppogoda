@@ -61,6 +61,6 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          cache-from: type=registry,ref=valdegor/cache:weather
-          cache-to: type=registry,mode=max,ref=valdegor/cache:weather
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/cache:weather
+          cache-to: type=registry,mode=max,ref=${{ secrets.DOCKERHUB_USERNAME }}/cache:weather
           tags: ${{ steps.meta.outputs.tags }}
