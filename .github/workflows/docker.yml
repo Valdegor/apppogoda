@@ -36,6 +36,8 @@ jobs:
         with:
           images: |
             ghcr.io/${{ github.repository }}
+          tags: |
+            latest
 
       - name: Build single-arch image for CVE scan
         uses: docker/build-push-action@v5
